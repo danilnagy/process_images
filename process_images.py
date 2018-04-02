@@ -1,6 +1,6 @@
 from Tkinter import *
 from tkFileDialog import askdirectory
-from tkinter import messagebox
+import tkMessageBox
 
 import os, PIL
 import numpy as np
@@ -230,7 +230,7 @@ class App:
 		try:
 			os.listdir(dir_path)
 		except WindowsError:
-			return messagebox.showerror("Error", "Please select valid directory!")
+			return tkMessageBox.showerror("Error", "Please select valid directory!")
 
 		mix = self.mix.get()
 		mode = self.mode.get()
