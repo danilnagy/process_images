@@ -14,9 +14,9 @@ Available parameters are:
 
 ### Dependencies:
 
-Python 2.7: https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
-numpy: http://www.numpy.org/
-Pillow: https://pillow.readthedocs.io/en/5.1.x/
+- Python 2.7: https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
+- numpy: http://www.numpy.org/
+- Pillow: https://pillow.readthedocs.io/en/5.1.x/
 
 If you don't want to run directly through Python or install the dependencies, a built .exe version is included in the `/dist` folder.
 
