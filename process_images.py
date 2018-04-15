@@ -1,13 +1,13 @@
-from Tkinter import *
+from Tkinter import Tk,Frame,Button,StringVar,Label,DoubleVar,IntVar,Entry,OptionMenu,BooleanVar,Checkbutton
 from tkFileDialog import askdirectory
-import tkMessageBox
+from tkMessageBox import showerror
 
-import os, PIL
+import os
 import numpy as np
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
-import math
+from math import ceil
 
 def _compose_alpha(img_in, img_layer, opacity):
 
@@ -136,8 +136,8 @@ def run(dir_path, gen_size, gen_stride = 1, des_stride = 1, mode = 2, make_index
 
 		print w, h
 
-		x_dim = int(math.ceil( aspect * h * len(final_images) / w ) ** 0.5)
-		y_dim = int(math.ceil(len(final_images) / float(x_dim)))
+		x_dim = int(ceil( aspect * h * len(final_images) / w ) ** 0.5)
+		y_dim = int(ceil(len(final_images) / float(x_dim)))
 
 		print "making index with dimensions:", x_dim, "x", y_dim
 
@@ -172,46 +172,46 @@ class App:
 		frame.pack()
 
 		button_dir = Button(frame, text="Set directory", command=self.get_directory)
-		button_dir.grid(row=0, column=0, padx=pad, pady=pad*2, sticky=E)
+		button_dir.grid(row=0, column=0, padx=pad, pady=pad*2, sticky='E')
 
 		self.dir = StringVar()
 		self.dir.set("No directory set!")
-		Label(frame, textvariable=self.dir).grid(row=0, column=1, padx=pad, pady=pad, sticky=W)
+		Label(frame, textvariable=self.dir).grid(row=0, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Overlay mode:").grid(row=1, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Overlay mode:").grid(row=1, column=0, padx=pad, pady=pad, sticky='E')
 		self.mode = StringVar()
 		self.mode.set("transparency")
-		OptionMenu(frame, self.mode, "transparency", "multiply", "darken").grid(row=1, column=1, padx=pad, pady=pad, sticky=W)
+		OptionMenu(frame, self.mode, "transparency", "multiply", "darken").grid(row=1, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Blend factor:").grid(row=2, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Blend factor:").grid(row=2, column=0, padx=pad, pady=pad, sticky='E')
 		self.mix = DoubleVar()
 		self.mix.set(0.8)
-		Entry(frame, textvariable=self.mix).grid(row=2, column=1, padx=pad, pady=pad, sticky=W)
+		Entry(frame, textvariable=self.mix).grid(row=2, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Designs per generation:").grid(row=3, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Designs per generation:").grid(row=3, column=0, padx=pad, pady=pad, sticky='E')
 		self.gen_size = IntVar()
 		self.gen_size.set(100)
-		Entry(frame, textvariable=self.gen_size).grid(row=3, column=1, padx=pad, pady=pad, sticky=W)
+		Entry(frame, textvariable=self.gen_size).grid(row=3, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Use nth generation:").grid(row=4, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Use nth generation:").grid(row=4, column=0, padx=pad, pady=pad, sticky='E')
 		self.gen_stride = IntVar()
 		self.gen_stride.set(1)
-		Entry(frame, textvariable=self.gen_stride).grid(row=4, column=1, padx=pad, pady=pad, sticky=W)
+		Entry(frame, textvariable=self.gen_stride).grid(row=4, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Use nth design:").grid(row=5, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Use nth design:").grid(row=5, column=0, padx=pad, pady=pad, sticky='E')
 		self.des_stride = IntVar()
 		self.des_stride.set(1)
-		Entry(frame, textvariable=self.des_stride).grid(row=5, column=1, padx=pad, pady=pad, sticky=W)
+		Entry(frame, textvariable=self.des_stride).grid(row=5, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Make index").grid(row=6, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Make index").grid(row=6, column=0, padx=pad, pady=pad, sticky='E')
 		self.make_index = BooleanVar()
 		self.make_index.set(True)
-		Checkbutton(frame, variable=self.make_index).grid(row=6, column=1, padx=pad, pady=pad, sticky=W)
+		Checkbutton(frame, variable=self.make_index).grid(row=6, column=1, padx=pad, pady=pad, sticky='W')
 
-		Label(frame, text="Aspect:").grid(row=7, column=0, padx=pad, pady=pad, sticky=E)
+		Label(frame, text="Aspect:").grid(row=7, column=0, padx=pad, pady=pad, sticky='E')
 		self.aspect = DoubleVar()
 		self.aspect.set(2.0)
-		Entry(frame, textvariable=self.aspect).grid(row=7, column=1, padx=pad, pady=pad, sticky=W)
+		Entry(frame, textvariable=self.aspect).grid(row=7, column=1, padx=pad, pady=pad, sticky='W')
 
 		self.button_run = Button(frame, text="Run", command=self.run_app)
 		self.button_run.grid(row=8, columnspan=2, padx=pad*2, pady=10)
@@ -230,7 +230,7 @@ class App:
 		try:
 			os.listdir(dir_path)
 		except WindowsError:
-			return tkMessageBox.showerror("Error", "Please select valid directory!")
+			return showerror("Error", "Please select valid directory!")
 
 		mix = self.mix.get()
 		mode = self.mode.get()
