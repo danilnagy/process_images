@@ -18,6 +18,6 @@ Available parameters are:
 - numpy: http://www.numpy.org/
 - Pillow: https://pillow.readthedocs.io/en/5.1.x/
 
-If you don't want to run directly through Python or install the dependencies, a built .exe version can be downloaded [here](https://www.dropbox.com/s/0w5sot4vr05sjxg/process_images.exe?dl=0).
+If you don't want to run directly through Python or install the dependencies, a built .exe version can be downloaded [here](https://www.dropbox.com/s/0w5sot4vr05sjxg/process_images.exe?dl=0). You can also download a sample dataset [here](http://bit.ly/sp18-gd-sample).
 
 ![bridge](bridge.png)
