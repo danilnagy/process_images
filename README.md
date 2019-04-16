@@ -14,10 +14,10 @@ Available parameters are:
 
 ### Dependencies:
 
-- Python 2.7: https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
+- Python 3.X: https://www.python.org/ftp/python/3.7.3/python-3.7.3.exe
 - numpy: http://www.numpy.org/
 - Pillow: https://pillow.readthedocs.io/en/5.1.x/
 
-If you don't want to run directly through Python or install the dependencies, a built .exe version can be downloaded [here](https://www.dropbox.com/s/0w5sot4vr05sjxg/process_images.exe?dl=0). You can also download a sample dataset [here](http://bit.ly/sp18-gd-sample).
+If you don't want to run directly through Python or install the dependencies, a built .exe version can be downloaded [here](https://www.dropbox.com/s/afbi43pf1f5ftl8/process_images.exe?dl=0). You can also download a sample dataset [here](http://bit.ly/sp18-gd-sample).
 
 ![bridge](bridge.png)
