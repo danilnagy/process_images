@@ -2,3 +2,4 @@ build
 dist
 numpypillow
 *.spec
+*.pyc

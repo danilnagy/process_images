@@ -1,6 +1,7 @@
-from Tkinter import Tk,Frame,Button,StringVar,Label,DoubleVar,IntVar,Entry,OptionMenu,BooleanVar,Checkbutton
-from tkFileDialog import askdirectory
-from tkMessageBox import showerror
+from tkinter import Tk,Frame,Button,StringVar,Label,DoubleVar,IntVar,Entry,OptionMenu,BooleanVar,Checkbutton
+# from tkFileDialog import askdirectory
+from tkinter import filedialog
+from tkinter.messagebox import showerror
 
 import os
 import numpy as np
@@ -50,7 +51,7 @@ def darken_only(img_in, img_layer, opacity):
 
 def run(dir_path, gen_size, gen_stride = 1, des_stride = 1, mode = 2, make_index = True, mix = .8, aspect = 2.0):
 
-	print dir_path
+	print(dir_path)
 
 	files = os.listdir(dir_path)
 	imlist = [filename for filename in files if filename[-4:] in [".png",".PNG", ".jpg", ".JPG"]]
@@ -62,9 +63,9 @@ def run(dir_path, gen_size, gen_stride = 1, des_stride = 1, mode = 2, make_index
 			des_nums.append(int(im.split('.')[0]))
 		except ValueError:
 			des_nums.append(None)
-			print "could not process image with name:", im
+			print("could not process image with name:", im)
 
-	print "found", len(des_nums), "images"
+	print("found", len(des_nums), "images")
 
 	chunks = [range(x, x+gen_size, des_stride) for x in range(0, max(des_nums), gen_size)]
 	chunks = [c for i,c in enumerate(chunks) if i % gen_stride == 0]
@@ -102,7 +103,9 @@ def run(dir_path, gen_size, gen_stride = 1, des_stride = 1, mode = 2, make_index
 			
 		for im in im_set:
 			imarr = np.ones((h,w,4),np.float) * 255.0
-			imarr[:,:,:3] = np.array(Image.open(dir_path + "/" + im), dtype=np.float)
+
+			img_load = np.array(Image.open(dir_path + "/" + im), dtype=np.float)[:,:,:3]
+			imarr[:,:,:3] = img_load
 
 			if mode == "multiply":
 				comp = multiply(imarr, comp, mix)
@@ -128,18 +131,18 @@ def run(dir_path, gen_size, gen_stride = 1, des_stride = 1, mode = 2, make_index
 
 		final_images.append(out)
 
-		print "saved image to:", target
+		print("saved image to:", target)
 
 	if make_index:
 
 		w,h = final_images[0].size
 
-		print w, h
+		print(w, h)
 
 		x_dim = int(ceil( aspect * h * len(final_images) / w ) ** 0.5)
 		y_dim = int(ceil(len(final_images) / float(x_dim)))
 
-		print "making index with dimensions:", x_dim, "x", y_dim
+		print("making index with dimensions:", x_dim, "x", y_dim)
 
 		img_out = np.ones((h*y_dim,w*x_dim,3),np.float) * 255.0
 
@@ -160,7 +163,7 @@ def run(dir_path, gen_size, gen_stride = 1, des_stride = 1, mode = 2, make_index
 		target = target_dir + "/index.png"
 		out.save(target)
 
-		print "saved image to:", target
+		print("saved image to:", target)
 
 class App:
 
@@ -219,9 +222,10 @@ class App:
 
 
 	def get_directory(self):
-		self.dir.set(askdirectory(title="Select directory with image files:", mustexist=1))
+		# self.dir.set(askdirectory(title="Select directory with image files:", mustexist=1))
+		self.dir.set(filedialog.askdirectory(title="Select directory with image files:", mustexist=1))
 		# self.dir_label.set(self.dir)
-		print self.dir
+		print(self.dir)
 
 	def run_app(self):
 
@@ -240,7 +244,7 @@ class App:
 		make_index = self.make_index.get()
 		aspect = self.aspect.get()
 
-		print dir_path, mix, mode, gen_size, gen_stride, des_stride, make_index, aspect
+		print(dir_path, mix, mode, gen_size, gen_stride, des_stride, make_index, aspect)
 
 		run(dir_path, gen_size, gen_stride, des_stride, mode, make_index, mix, aspect)
 
